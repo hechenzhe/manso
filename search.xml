@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[程序员的七夕礼物]]></title>
+      <url>http://www.manso-he.net/2016/08/09/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%B8%83%E5%A4%95%E7%A4%BC%E7%89%A9/</url>
+      <content type="html"><![CDATA[<p>人们常说：<strong><em>程序员怎么可能有女朋友呢</em></strong></p>
+<p>那只是你们不懂得欣赏程序员的浪漫，正好今天是七夕，给大家分享一个<strong><em>西班牙程序员Roman Cortes</em></strong>编写的3D JS 玫瑰花</p>
+<p><canvas id="c" height="500" width="500"></canvas></p>
+<script>
+    var b = document.body;
+    var c = document.getElementsByTagName('canvas')[0];
+    var a = c.getContext('2d');
+    document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+</script>
+<script>
+    // start of submission //
+    with(m = Math) C = cos, S = sin, P = pow, R = random;
+    c.width = c.height = f = 500;
+    h = -250;
+
+    function p(a, b, c) {
+        if (c > 60) return [S(a * 7) * (13 + 5 / (.2 + P(b * 4, 4))) - S(b) * 50, b * f + 50, 625 + C(a * 7) * (13 + 5 / (.2 + P(b * 4, 4))) + b * 400, a * 1 - b / 2, a];
+        A = a * 2 - 1;
+        B = b * 2 - 1;
+        if (A * A + B * B < 1) {
+            if (c > 37) {
+                n = (j = c & 1) ? 6 : 4;
+                o = .5 / (a + .01) + C(b * 125) * 3 - a * 300;
+                w = b * h;
+                return [o * C(n) + w * S(n) + j * 610 - 390, o * S(n) - w * C(n) + 550 - j * 350, 1180 + C(B + A) * 99 - j * 300, .4 - a * .1 + P(1 - B * B, -h * 6) * .15 - a * b * .4 + C(a + b) / 5 + P(C((o * (a + 1) + (B > 0 ? w : -w)) / 25),
+                    30) * .1 * (1 - B * B), o / 1e3 + .7 - o * w * 3e-6]
+            }
+            if (c > 32) {
+                c = c * 1.16 - .15;
+                o = a * 45 - 20;
+                w = b * b * h;
+                z = o * S(c) + w * C(c) + 620;
+                return [o * C(c) - w * S(c), 28 + C(B * .5) * 99 - b * b * b * 60 - z / 2 - h, z, (b * b * .3 + P((1 - (A * A)), 7) * .15 + .3) * b, b * .7]
+            }
+            o = A * (2 - b) * (80 - c * 2);
+            w = 99 - C(A) * 120 - C(b) * (-h - c * 4.9) + C(P(1 - b, 7)) * 50 + c * 2;
+            z = o * S(c) + w * C(c) + 700;
+            return [o * C(c) - w * S(c), B * 99 - C(P(b, 7)) * 50 - c / 3 - z / 1.35 + 450, z, (1 - b / 1.2) * .9 + a * .1, P((1 - b), 20) / 4 + .05]
+        }
+    }
+    setInterval('for(i=0;i<1e4;i++)if(s=p(R(),R(),i%46/.74)){z=s[2];x=~~(s[0]*f/z-h);y=~~(s[1]*f/z-h);if(!m[q=y*f+x]|m[q]>z)m[q]=z,a.fillStyle="rgb("+~(s[3]*h)+","+~(s[4]*h)+","+~(s[3]*s[3]*-80)+")",a.fillRect(x,y,1,1)}', 0)
+        // end of submission //
+</script>
+
+
+<a id="more"></a>
+<p>纯JS绘图的玫瑰花是不是很棒呢。看上去很复杂，其实代码只有短短的几行。下面贴上代码，只要把这段代码放到html里面，就可以画出漂亮的玫瑰了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas id=<span class="string">"c"</span> height=<span class="string">"500"</span> width=<span class="string">"500"</span> /&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="built_in">document</span>.body;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'canvas'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> a = c.getContext(<span class="string">'2d'</span>);</span><br><span class="line">    <span class="built_in">document</span>.body.clientWidth; <span class="comment">// fix bug in webkit: http://qfox.nl/weblog/218</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ start of submission /</span><span class="regexp">/</span></span><br><span class="line"><span class="regexp">    with(m = Math) C = cos, S = sin, P = pow, R = random;</span></span><br><span class="line"><span class="regexp">    c.width = c.height = f = 500;</span></span><br><span class="line"><span class="regexp">    h = -250;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    function p(a, b, c) &#123;</span></span><br><span class="line"><span class="regexp">        if (c &gt; 60) return [S(a * 7) * (13 + 5 / (.2 + P(b * 4, 4))) - S(b) * 50, b * f + 50, 625 + C(a * 7) * (13 + 5 / (.2 + P(b * 4, 4))) + b * 400, a * 1 - b / 2, a];</span></span><br><span class="line"><span class="regexp">        A = a * 2 - 1;</span></span><br><span class="line"><span class="regexp">        B = b * 2 - 1;</span></span><br><span class="line"><span class="regexp">        if (A * A + B * B &lt; 1) &#123;</span></span><br><span class="line"><span class="regexp">            if (c &gt; 37) &#123;</span></span><br><span class="line"><span class="regexp">                n = (j = c &amp; 1) ? 6 : 4;</span></span><br><span class="line"><span class="regexp">                o = .5 /</span> (a + <span class="number">.01</span>) + C(b * <span class="number">125</span>) * <span class="number">3</span> - a * <span class="number">300</span>;</span><br><span class="line">                w = b * h;</span><br><span class="line">                <span class="keyword">return</span> [o * C(n) + w * S(n) + j * <span class="number">610</span> - <span class="number">390</span>, o * S(n) - w * C(n) + <span class="number">550</span> - j * <span class="number">350</span>, <span class="number">1180</span> + C(B + A) * <span class="number">99</span> - j * <span class="number">300</span>, <span class="number">.4</span> - a * <span class="number">.1</span> + P(<span class="number">1</span> - B * B, -h * <span class="number">6</span>) * <span class="number">.15</span> - a * b * <span class="number">.4</span> + C(a + b) / <span class="number">5</span> + P(C((o * (a + <span class="number">1</span>) + (B &gt; <span class="number">0</span> ? w : -w)) / <span class="number">25</span>),</span><br><span class="line">                    <span class="number">30</span>) * <span class="number">.1</span> * (<span class="number">1</span> - B * B), o / <span class="number">1e3</span> + <span class="number">.7</span> - o * w * <span class="number">3e-6</span>]</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (c &gt; <span class="number">32</span>) &#123;</span><br><span class="line">                c = c * <span class="number">1.16</span> - <span class="number">.15</span>;</span><br><span class="line">                o = a * <span class="number">45</span> - <span class="number">20</span>;</span><br><span class="line">                w = b * b * h;</span><br><span class="line">                z = o * S(c) + w * C(c) + <span class="number">620</span>;</span><br><span class="line">                <span class="keyword">return</span> [o * C(c) - w * S(c), <span class="number">28</span> + C(B * <span class="number">.5</span>) * <span class="number">99</span> - b * b * b * <span class="number">60</span> - z / <span class="number">2</span> - h, z, (b * b * <span class="number">.3</span> + P((<span class="number">1</span> - (A * A)), <span class="number">7</span>) * <span class="number">.15</span> + <span class="number">.3</span>) * b, b * <span class="number">.7</span>]</span><br><span class="line">            &#125;</span><br><span class="line">            o = A * (<span class="number">2</span> - b) * (<span class="number">80</span> - c * <span class="number">2</span>);</span><br><span class="line">            w = <span class="number">99</span> - C(A) * <span class="number">120</span> - C(b) * (-h - c * <span class="number">4.9</span>) + C(P(<span class="number">1</span> - b, <span class="number">7</span>)) * <span class="number">50</span> + c * <span class="number">2</span>;</span><br><span class="line">            z = o * S(c) + w * C(c) + <span class="number">700</span>;</span><br><span class="line">            <span class="keyword">return</span> [o * C(c) - w * S(c), B * <span class="number">99</span> - C(P(b, <span class="number">7</span>)) * <span class="number">50</span> - c / <span class="number">3</span> - z / <span class="number">1.35</span> + <span class="number">450</span>, z, (<span class="number">1</span> - b / <span class="number">1.2</span>) * <span class="number">.9</span> + a * <span class="number">.1</span>, P((<span class="number">1</span> - b), <span class="number">20</span>) / <span class="number">4</span> + <span class="number">.05</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    setInterval(<span class="string">'for(i=0;i&lt;1e4;i++)if(s=p(R(),R(),i%46/.74))&#123;z=s[2];x=~~(s[0]*f/z-h);y=~~(s[1]*f/z-h);if(!m[q=y*f+x]|m[q]&gt;z)m[q]=z,a.fillStyle="rgb("+~(s[3]*h)+","+~(s[4]*h)+","+~(s[3]*s[3]*-80)+")",a.fillRect(x,y,1,1)&#125;'</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="comment">// end of submission //</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>祝大家七夕愉快，常吃狗粮</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> JS动画 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android HAL接口实现]]></title>
+      <url>http://www.manso-he.net/2016/08/09/HAL%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/</url>
+      <content type="html"><![CDATA[<h2 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h2><p>如果要实现一个HAL对应native层的接口，必须要明确一下整个结构。<br>HAL层的代码将会被封装成一个<strong>硬件模块</strong>，比如sensor.xxx.so的so库，该模块会通过kernel注册，然后在native代码层次调用该系统模块，使用其中的函数，类等等。<br>native层的实现可以有很多的用途，比如写成java的JNI实现，或则是编译成so库供其他的native层代码使用。</p>
+<p><img src="/images/android_hal_1.jpg" alt="流程图"></p>
+<h2 id="HAL层实现"><a href="#HAL层实现" class="headerlink" title="HAL层实现"></a>HAL层实现</h2><h3 id="HAL函数实现"><a href="#HAL函数实现" class="headerlink" title="HAL函数实现"></a>HAL函数实现</h3><p>自己比较熟悉的是Sensor传感器模块，就以这个模块为例。<br>首先，在libhardware/sensor.h文件中添加想要添加的功能函数的接口。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*get_val)(struct <span class="keyword">sensors_poll_device_t</span> *dev,<span class="keyword">float</span>* data);</span><br></pre></td></tr></table></figure></p>
+<p>然后在HAL层添加注册硬件模块的代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sensors_module_t</span> <span class="title">HAL_MODULE_INFO_SYM</span> = &#123;</span></span><br><span class="line">        common: &#123;</span><br><span class="line">                tag: HARDWARE_MODULE_TAG,</span><br><span class="line">                version_major: <span class="number">1</span>,</span><br><span class="line">                version_minor: <span class="number">0</span>,</span><br><span class="line">                id: SENSORS_HARDWARE_MODULE_ID,</span><br><span class="line">                name: <span class="string">"XXX module"</span>,</span><br><span class="line">                author: <span class="string">"XXX"</span>,</span><br><span class="line">                methods: &amp;sensors_module_methods,</span><br><span class="line">                dso: <span class="literal">NULL</span>,</span><br><span class="line">                reserved: &#123;<span class="number">0</span>&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        get_sensors_list: sensors__get_sensors_list,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>tag:  HARDWARE_MODULE_TAG</code>是固定的写法，这样写才能被kernel注册模块时所识别。</p>
+<p>之后在HAL添加具体的函数实现<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">sensors_poll_context_t</span>::get_val(<span class="keyword">float</span>* data)&#123;</span><br><span class="line">    LOGD(<span class="string">"get_val into in HAL......"</span>);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//返回了0-15共16个数字做示例</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        data[i]=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="编译HAL代码成so库"><a href="#编译HAL代码成so库" class="headerlink" title="编译HAL代码成so库"></a>编译HAL代码成so库</h3><p>编译的话就需要用到Android.mk文件了，语法不在细讲，需要根据自己的需求去更改。我的示例代码中，会生成一个snesors.xxx.so的库文件，这个so文件放至Android机器的system/lib/hw的文件夹下，就可以被使用了。</p>
+<h2 id="Native层实现"><a href="#Native层实现" class="headerlink" title="Native层实现"></a>Native层实现</h2><h3 id="Native代码实现"><a href="#Native代码实现" class="headerlink" title="Native代码实现"></a>Native代码实现</h3><p>可以新建 xxSensor.cpp和xxSensor.h文件，在cpp文件中实现module的打开。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">status_t</span> err = hw_get_module(SENSORS_HARDWARE_MODULE_ID,</span><br><span class="line">           (<span class="keyword">hw_module_t</span> <span class="keyword">const</span>**)&amp;mSensorModule);</span><br></pre></td></tr></table></figure>
+<p>然后调用模块中的open函数打开sensor硬件（打开实际上就是传回了一个类，该类实现了HAL层的函数功能等等）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err = sensors_open_1(&amp;mSensorModule-&gt;common, &amp;mSensorDevice);</span><br></pre></td></tr></table></figure>
+<p>之后直接调用<code>mSensorDevice-&gt;get_val()</code>就能使用该函数了。<br>当然，在native层，我们还是封装一下这个调用比较好.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">status_t</span> SensorDevice::get_val(<span class="keyword">float</span>* data)&#123;</span><br><span class="line">    <span class="keyword">if</span> (!mSensorDevice) <span class="keyword">return</span> NO_INIT;</span><br><span class="line">    <span class="keyword">int</span> temp= mSensorDevice-&gt;get_val(<span class="keyword">reinterpret_cast</span>&lt;struct <span class="keyword">sensors_poll_device_t</span> *&gt; (mSensorDevice),data);</span><br><span class="line">    ALOGD(<span class="string">"SensorDevice get_val"</span>);</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="JAVA接口JNI的实现"><a href="#JAVA接口JNI的实现" class="headerlink" title="JAVA接口JNI的实现"></a>JAVA接口JNI的实现</h3><p>关于JNI接口的编写，网上有很多同类的教程，我不在此多讲，老罗罗升阳的博客有很详细的讲解分析<br><a href="http://blog.csdn.net/luoshengyang/article/details/6575988" target="_blank" rel="noopener">在Ubuntu为Android硬件抽象层（HAL）模块编写JNI方法提供Java访问硬件服务接口 </a></p>
+<h3 id="封装成so库供其他的native层代码调用"><a href="#封装成so库供其他的native层代码调用" class="headerlink" title="封装成so库供其他的native层代码调用"></a>封装成so库供其他的native层代码调用</h3><p>在native层可以自己新建一个cpp和h文件，在里面直接使用SensorDevice的函数比如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> mySensor::get_val(<span class="keyword">float</span> data[<span class="number">16</span>])&#123;</span><br><span class="line">      android::SensorDevice&amp; dev(android::SensorDevice::getInstance());</span><br><span class="line">      ALOGD(<span class="string">"mySensor get_val"</span>);</span><br><span class="line">      <span class="keyword">return</span> dev.get_val(data);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>如果想要封装成直接可以用dlopen打开的so库的话，可以添加一个<code>extern&quot;c&quot;</code>将函数开一个接口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">n_get_val</span><span class="params">(<span class="keyword">float</span> data[<span class="number">16</span>])</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mySensor.get_val(data);</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>最后在mk文件中将自己写的代码编译成so库</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line">LOCAL_SRC_FILES:=\</span><br><span class="line">    mySensor.cpp \</span><br><span class="line">    SensorDevice.cpp</span><br><span class="line">LOCAL_SHARED_LIBRARIES := \</span><br><span class="line">		libcutils \</span><br><span class="line">		libhardware \</span><br><span class="line">		libhardware_legacy \</span><br><span class="line">		libutils \</span><br><span class="line">		liblog \</span><br><span class="line">		libbinder \</span><br><span class="line">		libui \</span><br><span class="line">		libgui \</span><br><span class="line">		libsensorservice</span><br><span class="line">LOCAL_MODULE:=mysensor</span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_SHARED_LIBRARY)</span></span><br></pre></td></tr></table></figure>
+<p>其中SRC_FILE要包含自己的cpp文件和引用的cpp文件，SHARED_LIBRARIES文件则包含应用的所有库。<br>编译生成mysensor.so文件，最后将mysensor.so和mysensor.h给其他人就可以直接在native层使用了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[转载：【Android】Sensor框架Framework层解读]]></title>
+      <url>http://www.manso-he.net/2016/07/29/%E3%80%90Android%E3%80%91Sensor%E6%A1%86%E6%9E%B6Framework%E5%B1%82%E8%A7%A3%E8%AF%BB/</url>
+      <content type="html"><![CDATA[<h3 id="转载说明"><a href="#转载说明" class="headerlink" title="转载说明"></a>转载说明</h3><p>在前几篇的Sensor框架简述中，粗略分析了Sensor框架的逻辑流程等。<br>但觉得细节的把握不够好，于是又去翻看了很多的文章，发现了一篇发表于<code>cnblog</code>的文章，只有大概3000的阅读量，但是文章质量非常高，Sensor框架的时序，通信结构等等讲述得非常清楚。同时还有同一系列的文章，HAL的分析，共同贯穿分析了整个Sensor框架</p>
+<p><strong>特此转载</strong></p>
+<h3 id="文章来源及作者"><a href="#文章来源及作者" class="headerlink" title="文章来源及作者"></a>文章来源及作者</h3><blockquote>
+<p>QQ联系方式：<a href="mailto:lcw@v.gg" target="_blank" rel="noopener">lcw@v.gg</a> 欢迎联系十狼<br>出处：<a href="http://www.cnblogs.com/lcw" target="_blank" rel="noopener">lcw.cnblogs.com</a><br>邮箱：<a href="mailto:wwwlllll@126.com" target="_blank" rel="noopener">wwwlllll@126.com</a><br>本文申明：本文版权归作者和博客园共有，欢迎转载，转载请注明出处.</p>
+</blockquote>
+<h3 id="文章链接"><a href="#文章链接" class="headerlink" title="文章链接"></a>文章链接</h3><p><a href="http://www.cnblogs.com/lcw/archive/2013/11/01/3402770.html" target="_blank" rel="noopener">【Android】Sensor框架Framework层解读</a><br><a href="http://www.cnblogs.com/lcw/p/3402816.html" target="_blank" rel="noopener">【Android】Sensor框架HAL层解读</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+            <tag> 转载 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[矩阵的求逆]]></title>
+      <url>http://www.manso-he.net/2016/07/28/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%B1%82%E9%80%86/</url>
+      <content type="html"><![CDATA[<h3 id="逆的几何解释"><a href="#逆的几何解释" class="headerlink" title="逆的几何解释"></a>逆的几何解释</h3><p>矩阵的逆可以计算变换的<strong>反向</strong>或<strong>相反</strong>变换，能<strong>撤销</strong>原变换。向量$\vec{v}$用矩阵M进行变换，再用$M^{-1}$进行变换，则会得到原向量。证明：<br>$$<br>(\vec{v}M)M^{-1}=\vec{v}(MM^{-1})=\vec{v}I=\vec{v}<br>$$</p>
+<h3 id="矩阵可逆性"><a href="#矩阵可逆性" class="headerlink" title="矩阵可逆性"></a>矩阵可逆性</h3><p>不是所有的矩阵都有逆，其中最简单的判别方法就是：<strong>可逆矩阵的行列式不为0</strong></p>
+<h3 id="标准伴随矩阵"><a href="#标准伴随矩阵" class="headerlink" title="标准伴随矩阵"></a>标准伴随矩阵</h3><p>假设有一可逆矩阵M，则标准伴随矩阵的定义是<strong>M的代数余子式矩阵的转置矩阵</strong>。</p>
+<p>例如：</p>
+<p><img src="http://img-blog.csdn.net/20160728180945235" alt="M"></p>
+<p>计算M的代数余子式矩阵：<br><img src="http://img-blog.csdn.net/20160728143457984" alt="代数余子式矩阵"></p>
+<p>M的标准伴随矩阵是代数余子式矩阵的转置:</p>
+<p><img src="http://img-blog.csdn.net/20160728180955360" alt="adjM"></p>
+<h3 id="求逆"><a href="#求逆" class="headerlink" title="求逆"></a>求逆</h3><p>则有了标准伴随矩阵，通过除以M的行列式，就能计算矩阵的逆。<br>$$<br>M^{-1}=\frac {adjM}{|M|}<br>$$<br>则最后的有：</p>
+<p><img src="http://img-blog.csdn.net/20160728181002892" alt="M-1"></p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>还有很多的方法计算矩阵的逆，比如高斯消元法。很多线性代数的书认为该方法更适合在计算机上实现，这是相对于大矩阵和特殊矩阵来说的。对于低阶矩阵，如转置矩阵等，伴随矩阵能更快一些。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 图形学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 计算机图形学 </tag>
+            
+            <tag> 线性代数 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Sensor框架简述（三）]]></title>
+      <url>http://www.manso-he.net/2016/07/26/Android%20Sensor%E6%A1%86%E6%9E%B6%E7%AE%80%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>在上一章<a href="http://www.manso-he.net/2016/07/19/Android%20Sensor%E6%A1%86%E6%9E%B6%E7%AE%80%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">Android Sensor框架简述（二） </a>中，我们最后介绍了应用层获取HAL层上报数据的方式。然而内部的实现逻辑并没有理清楚，现在，看看sensorManager是如何实现监听数据的。</p>
+<a id="more"></a>
+<h2 id="获取sensor-manager对象"><a href="#获取sensor-manager对象" class="headerlink" title="获取sensor manager对象"></a>获取sensor manager对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);</span><br></pre></td></tr></table></figure>
+<p>这是获取<code>sensorManager</code>的语句，<code>getSystemService</code>方法实际上调用了<code>registerService</code>来获得一个<code>SystemSensorManager</code>的对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">registerService(SENSOR_SERVICE, <span class="keyword">new</span> ServiceFetcher() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> Object <span class="title">createService</span><span class="params">(ContextImpl ctx)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SystemSensorManager(ctx.getOuterContext(),</span><br><span class="line">                      ctx.mMainThread.getHandler().getLooper());</span><br><span class="line">                &#125;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>SystemSensorManager对象的构造函数使用了JNI的方式获取了一个<code>SensorManager::getInstance()</code>获取了SensorManager的一个单例，并调用了<code>getSensorList</code>的方法，到最终调用了sensorService的的<code>getSensorList</code>方法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Vector&lt;Sensor&gt; SensorService::getSensorList()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> value[PROPERTY_VALUE_MAX];</span><br><span class="line">    property_get(<span class="string">"debug.sensors"</span>, value, <span class="string">"0"</span>);</span><br><span class="line">    <span class="keyword">if</span> (atoi(value)) &#123;</span><br><span class="line">        <span class="keyword">return</span> mUserSensorListDebug;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mUserSensorList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取sensor-object"><a href="#获取sensor-object" class="headerlink" title="获取sensor object"></a>获取sensor object</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);</span><br></pre></td></tr></table></figure>
+<p><code>getDefaultSensor</code>调用了<code>getSensorList(type)</code>获取指定type的sensor.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Use this method to get the list of available sensors of a certain type.</span></span><br><span class="line"><span class="comment">     * Make multiple calls to get sensors of different types or use</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> android.hardware.Sensor#TYPE_ALL Sensor.TYPE_ALL&#125; to get all the</span></span><br><span class="line"><span class="comment">     * sensors.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> type</span></span><br><span class="line"><span class="comment">     *        of sensors requested</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> a list of sensors matching the asked type.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> #getDefaultSensor(int)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> Sensor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Sensor&gt; <span class="title">getSensorList</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// cache the returned lists the first time</span></span><br><span class="line">        List&lt;Sensor&gt; list;</span><br><span class="line">        <span class="keyword">final</span> List&lt;Sensor&gt; fullList = getFullSensorList();</span><br><span class="line">        <span class="keyword">synchronized</span> (mSensorListByType) &#123;</span><br><span class="line">            list = mSensorListByType.get(type);</span><br><span class="line">            <span class="keyword">if</span> (list == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (type == Sensor.TYPE_ALL) &#123;</span><br><span class="line">                    list = fullList;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    list = <span class="keyword">new</span> ArrayList&lt;Sensor&gt;();</span><br><span class="line">                    <span class="keyword">for</span> (Sensor i : fullList) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (i.getType() == type)</span><br><span class="line">                            list.add(i);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                list = Collections.unmodifiableList(list);</span><br><span class="line">                mSensorListByType.append(type, list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="定义eventListener"><a href="#定义eventListener" class="headerlink" title="定义eventListener"></a>定义eventListener</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mLightSensorListener = <span class="keyword">new</span> SensorEventListener();</span><br></pre></td></tr></table></figure>
+<p>这个定义主要是重写了<code>onSensorChanged()</code>和<code>onAccuracyChanged()</code>方法，这两个分别是在传感器的数据和精度发生变化的时候进行处理的监听器，代码不再贴。</p>
+<h2 id="注册eventListener"><a href="#注册eventListener" class="headerlink" title="注册eventListener"></a>注册eventListener</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sensorManager.registerListener(<span class="keyword">this</span>,gyroscopeSensor,<span class="number">10000</span>);</span><br></pre></td></tr></table></figure>
+<p><code>registerListener</code>调用<code>systemSensorManager</code>的<code>registerListenerImpl()</code>方法，主要是定义了消息泵Looper，消息队列sensorEventQueue。Looper的实现也是JNI的方式，绑定了一个回调函数<code>handleEvent</code>，再调用了<code>dispatchSensorEvent</code>方法。<br>在<code>dispatchSensorEvent</code>的最后，我们看到了<code>mListener.onSensorChanged(t);</code>，调用该函数做处理。</p>
+<blockquote>
+<p>PS：由于内核代码涉及到机密，部分自定义的代码不贴出来了，源码可以在Google找到。</p>
+</blockquote>
+<h2 id="写在最后的"><a href="#写在最后的" class="headerlink" title="写在最后的"></a>写在最后的</h2><p>博主负责的部分不是上层，所以有些机制不能非常深入了解。SensorManager获取数据的大概方式就是如此了。HAL负责数据的上报，SensorManager负责接收给应用使用，中间可以对传感器数据进行处理，滤波，校准等等。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[欢迎光临]]></title>
+      <url>http://www.manso-he.net/2016/07/21/%E6%AC%A2%E8%BF%8E%E5%85%89%E4%B8%B4/</url>
+      <content type="html"><![CDATA[<h2 id="欢迎光临"><a href="#欢迎光临" class="headerlink" title="欢迎光临"></a>欢迎光临</h2><p>这里是Manso的个人博客，分享交流个人学习历程，欢迎各位coder前来查看</p>
+<h2 id="博客相关"><a href="#博客相关" class="headerlink" title="博客相关"></a>博客相关</h2><p>本博客使用了coding page服务，绑定个人域名，使用了hexo的静态博客框架还有<a href="http://moxfive.xyz/" target="_blank" rel="noopener">MOxFIVE</a>开发的主题，关于如何建立个人博客大家可以去看看他的文章</p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>如果有问题问我的话，可以直接在文章评论或者去微博上私信我，我看到了会及时回复的。<a href="/about/">戳我看更多</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> welcome </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android同步类：Mutex和Condition的使用方式]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%E5%90%8C%E6%AD%A5%E7%B1%BB%EF%BC%9AMutex%E5%92%8CCondition%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>Android同步类：Mutex和Condition的使用方式<br><a id="more"></a></p>
+<h2 id="Metux类"><a href="#Metux类" class="headerlink" title="Metux类"></a>Metux类</h2><p>Mutex是互斥类，多个线程访问同一个资源时，要确保他们的互斥。主要函数有<br><code>lock(),unlock(),trylock()</code></p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">lock()</td>
+<td>当使用lock函数时，当前的线程就会lock住；如果有线程已经锁住，lock()则会等待直到成功为止，系统只允许有一个线程被lock住</td>
+</tr>
+<tr>
+<td style="text-align:center">unlock()</td>
+<td>该函数可以释放线程</td>
+</tr>
+<tr>
+<td style="text-align:center">trylock()</td>
+<td>该函数尝试去锁进程，通过返回值可以判断是否能lock住</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>以下是Mutex的源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> Mutex::Mutex(<span class="keyword">int</span> type, <span class="keyword">const</span> <span class="keyword">char</span>* name) &#123;</span><br><span class="line">    <span class="keyword">if</span> (type == SHARED) &#123;</span><br><span class="line">       <span class="comment">//type如果是SHARED，则表明这个Mutex支持跨进程的线程同步。</span></span><br><span class="line">        <span class="keyword">pthread_mutexattr_t</span> attr;</span><br><span class="line">        pthread_mutexattr_init(&amp;attr);</span><br><span class="line">        pthread_mutexattr_setpshared(&amp;attr, PTHREAD_PROCESS_SHARED);</span><br><span class="line">        pthread_mutex_init(&amp;mMutex, &amp;attr);</span><br><span class="line">        pthread_mutexattr_destroy(&amp;attr);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        pthread_mutex_init(&amp;mMutex, <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> Mutex::~Mutex() &#123;</span><br><span class="line">    pthread_mutex_destroy(&amp;mMutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">status_t</span> Mutex::lock() &#123;</span><br><span class="line">    <span class="keyword">return</span> -pthread_mutex_lock(&amp;mMutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> Mutex::unlock() &#123;</span><br><span class="line">    pthread_mutex_unlock(&amp;mMutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">status_t</span> Mutex::tryLock() &#123;</span><br><span class="line">    <span class="keyword">return</span> -pthread_mutex_trylock(&amp;mMutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="AutoLock类"><a href="#AutoLock类" class="headerlink" title="AutoLock类"></a>AutoLock类</h2><p>AutoLock类是Mutex的一个<strong>内部类</strong>，是为了方便使用Mutex而产生的。<br>在Mutex中，lock和unlock是必须成对出现的，但是当代码很复杂时，则会出现遗漏的现象。<br>利用构造和析构函数的性质，可以方便地让lock和unlock成对出现。<br>当需要使用lock函数时，构造一个AutoLock类，线程结束后该类析构，则相当于unlock，这样避免了发生lock和unlock不匹配的情况。</p>
+<p>以下是Autolock的源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Autolock</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//构造的时候调用lock。</span></span><br><span class="line">        inline Autolock(Mutex&amp; mutex) : mLock(mutex)  &#123; mLock.lock(); &#125;</span><br><span class="line">        inline Autolock(Mutex* mutex) : mLock(*mutex) &#123; mLock.lock(); &#125;</span><br><span class="line">        <span class="comment">//析构的时候调用unlock。</span></span><br><span class="line">        <span class="keyword">inline</span> ~Autolock() &#123; mLock.unlock(); &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        Mutex&amp; mLock;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Condition类"><a href="#Condition类" class="headerlink" title="Condition类"></a>Condition类</h2><p>线程B或者C在运行前，必须有一个A线程的初始化，即A是一个条件，Condition则是用在这样的一种场景中，并且Condition和Mutex是配合使用的，Condition的函数都必须放在Mutex的lock和unlock之间。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">wait(Mutex&amp; mutex)</td>
+<td>线程B和C等待事件</td>
+</tr>
+<tr>
+<td style="text-align:center">waitRelative(Mutex&amp; mutex, nsecs_t reltime)</td>
+<td>线程B和C的超时等待，B和C可以指定等待时间，当超过这个时间，条件却还不满足，则退出等待。</td>
+</tr>
+<tr>
+<td style="text-align:center">signal()</td>
+<td>触发者A用来通知条件已经满足，但是B和C只有一个会被唤醒。</td>
+</tr>
+<tr>
+<td style="text-align:center">broadcast()</td>
+<td>触发者A用来通知条件已经满足，所有等待者都会被唤醒。(广播)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>以下是Condition的源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Condition</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">enum</span> &#123;</span><br><span class="line">        PRIVATE = <span class="number">0</span>,</span><br><span class="line">        SHARED = <span class="number">1</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Condition();</span><br><span class="line">    Condition(<span class="keyword">int</span> type);<span class="comment">//如果type是SHARED，表示支持跨进程的条件同步</span></span><br><span class="line">    ~Condition();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">status_t</span> wait(Mutex&amp; mutex);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">status_t</span> waitRelative(Mutex&amp; mutex, <span class="keyword">nsecs_t</span> reltime);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signal</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">broadcast</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(HAVE_PTHREADS)</span></span><br><span class="line">    <span class="keyword">pthread_cond_t</span> mCond;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="keyword">void</span>*   mState;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Sensor框架简述（一）]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20Sensor%E6%A1%86%E6%9E%B6%E7%AE%80%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h2 id="Sensor整体框架"><a href="#Sensor整体框架" class="headerlink" title="Sensor整体框架"></a>Sensor整体框架</h2><blockquote>
+<p>什么是Sensor？</p>
+</blockquote>
+<a id="more"></a>
+<p>Sensor就是所谓的传感器，比如AccelerometerSensor、MagneticSensor、OrientationSensor、ProximitySensor、LightSensor、Gyro等。</p>
+<p><img src="/images/android_sensor_one_1.jpg" alt="Sensor框架结构"></p>
+<p>黄色部分：硬件，在I2C总线上</p>
+<p>红色部分：驱动，驱动注册到Kernel的<code>Input Subsystem</code>上，然后通过<code>Event Device</code>把Sensor数据传到HAL层，准确说是HAL从Event读</p>
+<p>绿色部分：动态库，它封装了整个Sensor的IPC机制，如<code>SensorManager</code>是客户端，<code>SensorService</code>是服务端，而HAL部分是封装了服务端对Kernel的直接访问</p>
+<p>蓝色部分就是我们的<code>Framework</code>和<code>Application</code>了，JNI负责访问Sensor的客户端，而<code>Application</code>就是具体的应用程序，用来接收Sensor返回的数据，并处理实现对应的UI效果</p>
+<hr>
+<h3 id="SensorService启动"><a href="#SensorService启动" class="headerlink" title="SensorService启动"></a>SensorService启动</h3><blockquote>
+<p>网络上很多sensor机制讲解的内容都是过时的了，新的android有了新的机制，这里讲的是Android5.0以上的版本</p>
+</blockquote>
+<p>这里推荐一个较新的博客，关于Android5.0 Sensor机制<a href="http://blog.csdn.net/zsj100213/article/details/48179655" target="_blank" rel="noopener"> android-5.0 sensor工作原理—sensorservice的启动(一) </a><br><img src="/images/android_sensor_one_2.jpg" alt="SensorService启动"></p>
+<p>启动SensorService的过程如上图所示，过程还是比较清晰的。</p>
+<hr>
+<h3 id="SensorDevice获取"><a href="#SensorDevice获取" class="headerlink" title="SensorDevice获取"></a>SensorDevice获取</h3><p>SensorService的onFirstRef()函数创建了一个新的SensorDevice，接下来就来看看SensorDevice做了哪些工作。<br><img src="/images/android_sensor_one_3.jpg" alt="SensorDevice获取描述"></p>
+<h4 id="hw-get-module"><a href="#hw-get-module" class="headerlink" title="hw_get_module()"></a>hw_get_module()</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">status_t err = hw_get_module(<span class="name">SENSORS_HARDWARE_MODULE_ID</span>,</span><br><span class="line">            (<span class="name">hw_module_t</span> const**)<span class="symbol">&amp;mSensorModule</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这个函数主要是为了从的库文件获取参数，第一个参数是所获取的hardware模块的名字，第二个参数是获得的hw_module_t。如何获得的细节不在赘述。</p>
+<h5 id="hw-module-t"><a href="#hw-module-t" class="headerlink" title="hw_module_t"></a>hw_module_t</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sensors_module_t</span> <span class="title">HAL_MODULE_INFO_SYM</span> = &#123;</span>  </span><br><span class="line">        common:&#123;  </span><br><span class="line">                tag: HARDWARE_MODULE_TAG,  </span><br><span class="line">                version_major: <span class="number">1</span>,  </span><br><span class="line">                version_minor: <span class="number">0</span>,  </span><br><span class="line">                id: SENSORS_HARDWARE_MODULE_ID,  </span><br><span class="line">                name: <span class="string">"SPRD Sensor module"</span>,  </span><br><span class="line">                author: <span class="string">"Spreadtrum"</span>,  </span><br><span class="line">                methods: &amp;sensors_module_methods,  </span><br><span class="line">                dso: <span class="number">0</span>,  </span><br><span class="line">                reserved:&#123;&#125;,  </span><br><span class="line">        &#125;,  </span><br><span class="line">        get_sensors_list:sensors__get_sensors_list,  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">hw_module_methods_t</span> <span class="title">sensors_module_methods</span> = &#123;</span>  </span><br><span class="line">open:    open_sensors  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sensors__get_sensors_list</span><span class="params">(struct <span class="keyword">sensors_module_t</span> *<span class="keyword">module</span>,  </span></span></span><br><span class="line"><span class="function"><span class="params">                     struct <span class="keyword">sensor_t</span> <span class="keyword">const</span> **<span class="built_in">list</span>)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    *<span class="built_in">list</span> = sSensorList;  </span><br><span class="line">    <span class="keyword">return</span> numSensors;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个结构体，包含一个hw_module_t还包含一些接口，比如sensors__get_sensors_list和open_sensors等</p>
+<h4 id="sensors-open-1"><a href="#sensors-open-1" class="headerlink" title="sensors_open_1"></a>sensors_open_1</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">sensors_open_1</span><span class="params">(<span class="keyword">const</span> struct <span class="keyword">hw_module_t</span>* <span class="keyword">module</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">       <span class="keyword">sensors_poll_device_1_t</span>** device)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">module</span>-&gt;methods-&gt;open(<span class="keyword">module</span>,  </span><br><span class="line">           SENSORS_HARDWARE_POLL, (struct <span class="keyword">hw_device_t</span>**)device);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的open函数就是上一步<code>hw_get_module()</code>获取的<code>sensors_module_t</code>所定义的<code>sensors_module_methods</code>的<code>open_sensors</code>接口</p>
+<h5 id="open-sensors"><a href="#open-sensors" class="headerlink" title="open_sensors()"></a>open_sensors()</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">open_sensors</span><span class="params">(<span class="keyword">const</span> struct <span class="keyword">hw_module_t</span>* <span class="keyword">module</span>, <span class="keyword">const</span> <span class="keyword">char</span>* id,  </span></span></span><br><span class="line"><span class="function"><span class="params">                        struct <span class="keyword">hw_device_t</span>** device)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> status = -EINVAL;  </span><br><span class="line">        <span class="keyword">sensors_poll_context_t</span> *dev = <span class="keyword">new</span> <span class="keyword">sensors_poll_context_t</span>();  </span><br><span class="line"></span><br><span class="line">        <span class="built_in">memset</span>(&amp;dev-&gt;device, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">sensors_poll_device_t</span>));  </span><br><span class="line"></span><br><span class="line">        dev-&gt;device.common.tag = HARDWARE_DEVICE_TAG;  </span><br><span class="line">        dev-&gt;device.common.version  = <span class="number">0</span>;  </span><br><span class="line">        dev-&gt;device.common.<span class="keyword">module</span>   = <span class="keyword">const_cast</span>&lt;<span class="keyword">hw_module_t</span>*&gt;(<span class="keyword">module</span>);  </span><br><span class="line">        dev-&gt;device.common.close    = poll__close;  </span><br><span class="line">        dev-&gt;device.activate        = poll__activate;  </span><br><span class="line">        dev-&gt;device.setDelay        = poll__setDelay;  </span><br><span class="line">        dev-&gt;device.poll            = poll__poll;  </span><br><span class="line"></span><br><span class="line">        *device = &amp;dev-&gt;device.common;  </span><br><span class="line">        status = <span class="number">0</span>;  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> status;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>sensors_poll_context_t()方法新建并初始化系统所有的sensor</em><br>然后对sensors_poll_device_t结构体的初始化，以及数据获取的API 接口的定义</p>
+</blockquote>
+<h4 id="get-sensors-list"><a href="#get-sensors-list" class="headerlink" title="get_sensors_list()"></a>get_sensors_list()</h4><p>这个方法就是上述hw_get_module()获取的sensors_module_t的方法，获取的是HAL层初始化好的sensor的列表，并返回sensor的数量</p>
+<h4 id="activate"><a href="#activate" class="headerlink" title="activate()"></a>activate()</h4><p>最后是一个循环，把所有的sensor都通过activate激活。</p>
+<p>调用HAL层sensor厂商添加的setEnable()方法来打开对应sensor。<br>通过open函数获取sensor在sysfs对应的文件节点，然后使用write函数往文件节点里面写1。</p>
+<p>这就是activate的大概过程，代码不再贴出来。</p>
+<p>至此，sensor全部启动完毕。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[IOS 传感器Core Motion相关简述]]></title>
+      <url>http://www.manso-he.net/2016/07/19/IOS%20%E4%BC%A0%E6%84%9F%E5%99%A8Core%20Motion%E7%9B%B8%E5%85%B3%E7%AE%80%E8%BF%B0/</url>
+      <content type="html"><![CDATA[<p>由于公司要求，了解了一下IOS上传感器数据的处理方式，在此作为记录。<br><a id="more"></a></p>
+<hr>
+<h2 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h2><p>Core Motion是IOS提供的一个封装好的框架，核心运动框架，可以很方便地获取基本九轴传感器的数据（加速度计，陀螺仪和磁力计），还提供了高通滤波的算法，直接获取剥离了重力加速度的加速度分量。</p>
+<hr>
+<h2 id="Core-Motion的数据结构"><a href="#Core-Motion的数据结构" class="headerlink" title="Core Motion的数据结构"></a>Core Motion的数据结构</h2><ul>
+<li><p>CMAccelerometerData<br>实际包含一个结构体acceleration(类型：CMAcceleration)，提供三轴加速度值，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line"><span class="keyword">double</span> x;</span><br><span class="line"><span class="keyword">double</span> y;</span><br><span class="line"><span class="keyword">double</span> z;</span><br><span class="line">&#125; CMAcceleration;</span><br><span class="line"><span class="comment">// A structure containing 3-axis acceleration data.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CMGyroData<br>实际包含一个结构体rotationRate(类型：CMRotationRate)，提供三轴角速度值，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line"><span class="keyword">double</span> x;</span><br><span class="line"><span class="keyword">double</span> y;</span><br><span class="line"><span class="keyword">double</span> z;</span><br><span class="line">&#125; CMRotationRate;</span><br><span class="line"><span class="comment">// A structure containing 3-axis rotation rate data.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CMMagnetometerData<br>实际包含一个结构体magneticField(类型：CMMagneticField)，提供三轴磁力值，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">   <span class="keyword">double</span> x;</span><br><span class="line">   <span class="keyword">double</span> y;</span><br><span class="line">   <span class="keyword">double</span> z;</span><br><span class="line">&#125; CMMagneticField;</span><br><span class="line"><span class="comment">// A structure containing 3-axis magnetometer data.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CMDeviceMotion<br>包含四种数据</p>
+<ul>
+<li><p>attitude(类型：CMAttitude)      姿态</p>
+<blockquote>
+<p>// Returns the attitude of the device.<br>其中包含欧拉角度(roll,pitch,yaw)，四元组 (CMQuaternion)，还有一个旋转矩阵(CMRotationMatrix)<br>multiplyByInverseOfAttitude方法</p>
+</blockquote>
+</li>
+<li><p>rotationRate(类型：CMRotationRate)  角速度</p>
+<blockquote>
+<p>// Returns the rotation rate of the device for devices with a gyro.<br>和上述的陀螺仪角速度一致</p>
+</blockquote>
+</li>
+<li><p>gravity(类型：CMAcceleration) 重力加速度</p>
+<blockquote>
+<p>// Returns the gravity vector expressed in the device’s reference<br>frame. Note that the total acceleration of the device is equal to<br>gravity plus userAcceleration.</p>
+</blockquote>
+</li>
+<li><p>userAcceleration(类型：CMAcceleration) 用户的加速度，即高通滤波后的加速度</p>
+<blockquote>
+<p>// Returns the acceleration that the user is giving to the device.<br>Note that the total acceleration of the device is equal to gravity<br>plus userAcceleration.</p>
+</blockquote>
+</li>
+<li><p>magneticField (类型：CMCalibratedMagneticField) 磁场数值</p>
+<blockquote>
+<p>//Returns the magnetic field vector with respect to the device.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>还有一些磁场校准的精度数据CMMagneticFieldCalibrationAccuracy等等</p>
+<hr>
+<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><h3 id="push方式"><a href="#push方式" class="headerlink" title="push方式"></a>push方式</h3><p>1.创建运动管理对象<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMMotionManager *mgr = <span class="comment">[<span class="comment">[CMMotionManageralloc]</span>init]</span>;</span><br></pre></td></tr></table></figure></p>
+<p>2.判断加速器是否可用<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">if</span><span class="params">(mgr.isAccelerometerAvailable)</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.设置采样间隔<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mgr.accelerometerUpdateInterval= <span class="number">1.0</span>/<span class="number">60.0</span>;<span class="comment">// 1秒钟采样60次</span></span><br></pre></td></tr></table></figure></p>
+<p>4.开始采样<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="params">(void)</span>startAccelerometerUpdatesToQueue:<span class="params">(NSOperationQueue*)</span>queue withHandler:<span class="params">(CMAccelerometerHandler)</span>handler;</span><br></pre></td></tr></table></figure></p>
+<h3 id="pull方式"><a href="#pull方式" class="headerlink" title="pull方式"></a>pull方式</h3><p>1.创建运动管理对象<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CMMotionManager</span> *mgr = [[<span class="type">CMMotionManageralloc</span>]<span class="keyword">init</span>];</span><br></pre></td></tr></table></figure></p>
+<p>2.判断加速器是否可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(mgr.isAccelerometerAvailable)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.开始采样<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)startAccelerometerUpdates;</span><br></pre></td></tr></table></figure></p>
+<p>4.在需要时获取数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMAcceleration acc = mgr.accelerometerData.acceleration;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Device-Motion信息的提供"><a href="#Device-Motion信息的提供" class="headerlink" title="Device Motion信息的提供"></a>Device Motion信息的提供</h3><p>CMDeviceMotion中的所有数据都是可读数据，用户可以直接从中获取需求的数据，比如说重力加速度等等，而不只是传感器的原始数据，IOS提供的库已经对原始数据进行了加工处理</p>
+<hr>
+<p>以上信息总结至多个博文<br><a href="http://www.jianshu.com/p/233be81b8ead#" target="_blank" rel="noopener">IOS传感器的基本使用</a><br><a href="http://justsee.iteye.com/blog/1933099" target="_blank" rel="noopener">Core Motion框架使用方法 </a><br><a href="http://blog.csdn.net/kingkong1024/article/details/11605143" target="_blank" rel="noopener">CoreMotion可以测到的各种值</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> IOS </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Ubuntu下adb无法连接真机的解决方案]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Ubuntu%E4%B8%8Badb%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E7%9C%9F%E6%9C%BA%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <content type="html"><![CDATA[<p>实习中需要使用android设备调试源码，但是ubuntu系统不能自动识别连接上的设备。下面是自己实验的解决方案。<br><a id="more"></a></p>
+<hr>
+<h2 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:nilarimogard/webupd8</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install Android-tools-adb</span><br></pre></td></tr></table></figure>
+<h2 id="查看设备"><a href="#查看设备" class="headerlink" title="查看设备"></a>查看设备</h2><p> 使用<code>adb devices</code>命令查看设备，由于无法识别设备，不会显示已连接的设备<br> 接着使用<code>lsusb</code> 查看设备列表</p>
+<p>Bus 004 Device 002: ID 8087:8000 Intel Corp.<br>Bus 004 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 003 Device 002: ID 8087:8008 Intel Corp.<br>Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub<br> <font color="red">Bus 001 Device 092: ID 1f3a:1007 Onda (unverified) </font><br>Bus 001 Device 003: ID 093a:2510 Pixart Imaging, Inc. Optical Mouse<br>Bus 001 Device 002: ID 1c4f:0002 SiGma Micro Keyboard TRACER Gamma Ivory<br>Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</p>
+<h2 id="创建adb-usb-ini文件，写入id"><a href="#创建adb-usb-ini文件，写入id" class="headerlink" title="创建adb_usb.ini文件，写入id"></a>创建adb_usb.ini文件，写入id</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 0x1f3a &gt; ~/.android/adb_usb.ini</span><br></pre></td></tr></table></figure>
+<p>注意这里的16进制码是上面红色设备所表示的id码</p>
+<h2 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h2><p><code>sudo vim /etc/udev/rules.d/70-android.rules</code><br>注意70-android是个关键，我自己搜索的方案中有50-android的，但是无效，建议使用70-android<br>加入以下内容，红色部分就是lsusb得到的id</p>
+<p>SUBSYSTEM==”usb”, ATTRS{idVendor}==”<font color="red">1f3a</font>“, ATTRS{idProduct}==” <font color="red">1007</font>“,MODE=”0666”</p>
+<h2 id="重启USB服务"><a href="#重启USB服务" class="headerlink" title="重启USB服务"></a>重启USB服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+rx /etc/udev/rules.d/70-android.rules</span><br><span class="line">sudo service udev restart</span><br></pre></td></tr></table></figure>
+<h2 id="重启adb服务"><a href="#重启adb服务" class="headerlink" title="重启adb服务"></a>重启adb服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="built_in">kill</span>-server</span><br><span class="line">sudo adb start-server</span><br><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+<p>以下是我的列表<br>List of devices attached<br>901000f20108a71a92c9    device<br>表示已经识别成功</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android下陀螺仪、加速度和磁场传感器数据定义]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20%E4%B8%8B%E9%99%80%E8%9E%BA%E4%BB%AA%E3%80%81%E5%8A%A0%E9%80%9F%E5%BA%A6%E5%92%8C%E7%A3%81%E5%9C%BA%E4%BC%A0%E6%84%9F%E5%99%A8%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89/</url>
+      <content type="html"><![CDATA[<p>摘自Android SensorEvent.java代码注释<br><a id="more"></a></p>
+<hr>
+<h2 id="Sensor-TYPE-ACCELEROMETER-加速度传感器类型"><a href="#Sensor-TYPE-ACCELEROMETER-加速度传感器类型" class="headerlink" title="Sensor.TYPE_ACCELEROMETER(加速度传感器类型)"></a>Sensor.TYPE_ACCELEROMETER(加速度传感器类型)</h2><p>All values are in SI units (m/s^2)</p>
+<pre><code>values[0]: Acceleration minus Gx on the x-axis
+values[1]: Acceleration minus Gy on the y-axis
+values[2]: Acceleration minus Gz on the z-axis
+</code></pre><p>A sensor of this type measures the acceleration applied to the device (Ad). Conceptually, it does so by measuring forces applied to the sensor itself (Fs) using the relation:<br>Ad = - ∑Fs / mass</p>
+<p>In particular, the force of gravity is always influencing the measured acceleration:<br>Ad = -g - ∑F / mass</p>
+<p>For this reason, when the device is sitting on a table (and obviously not accelerating), the accelerometer reads a magnitude of g = 9.81 m/s^2</p>
+<p>Similarly, when the device is in free-fall and therefore dangerously accelerating towards to ground at 9.81 m/s^2, its accelerometer reads a magnitude of 0 m/s^2.</p>
+<p>It should be apparent that in order to measure the real acceleration of the device, the contribution of the force of gravity must be eliminated. This can be achieved by applying a high-pass filter. Conversely, a low-pass filter can be used to isolate the force of gravity.</p>
+<pre><code>public void onSensorChanged(SensorEvent event)
+{
+     // alpha is calculated as t / (t + dT)
+     // with t, the low-pass filter&apos;s time-constant
+     // and dT, the event delivery rate
+
+     final float alpha = 0.8;
+
+     gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+     gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+     gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+     linear_acceleration[0] = event.values[0] - gravity[0];
+     linear_acceleration[1] = event.values[1] - gravity[1];
+     linear_acceleration[2] = event.values[2] - gravity[2];
+}
+</code></pre><p>Examples:</p>
+<pre><code>When the device lies flat on a table and is pushed on its left side toward the right, the x acceleration value is positive.
+
+When the device lies flat on a table, the acceleration value is +9.81, which correspond to the acceleration of the device (0 m/s^2) minus the force of gravity (-9.81 m/s^2).
+</code></pre><hr>
+<h2 id="Sensor-TYPE-MAGNETIC-FIELD-磁场传感器类型"><a href="#Sensor-TYPE-MAGNETIC-FIELD-磁场传感器类型" class="headerlink" title="Sensor.TYPE_MAGNETIC_FIELD(磁场传感器类型)"></a>Sensor.TYPE_MAGNETIC_FIELD(磁场传感器类型)</h2><p>All values are in micro-Tesla (uT) and measure the ambient magnetic field in the X, Y and Z axis.</p>
+<hr>
+<h2 id="Sensor-TYPE-GYROSCOPE-陀螺仪传感器"><a href="#Sensor-TYPE-GYROSCOPE-陀螺仪传感器" class="headerlink" title="Sensor.TYPE_GYROSCOPE(陀螺仪传感器)"></a>Sensor.TYPE_GYROSCOPE(陀螺仪传感器)</h2><p>All values are in radians/second and measure the rate of rotation around the device’s local X, Y and Z axis. The coordinate system is the same as is used for the acceleration sensor. Rotation is positive in the counter-clockwise direction. That is, an observer looking from some positive location on the x, y or z axis at a device positioned on the origin would report positive rotation if the device appeared to be rotating counter clockwise. Note that this is the standard mathematical definition of positive rotation and does not agree with the definition of roll given earlier.</p>
+<pre><code>values[0]: Angular speed around the x-axis
+values[1]: Angular speed around the y-axis
+values[2]: Angular speed around the z-axis
+</code></pre><p>Typically the output of the gyroscope is integrated over time to calculate a rotation describing the change of angles over the timestep, for example:</p>
+<pre><code>private static final float NS2S = 1.0f / 1000000000.0f;
+private final float[] deltaRotationVector = new float[4]();
+private float timestamp;
+
+public void onSensorChanged(SensorEvent event) {
+     // This timestep&apos;s delta rotation to be multiplied by the current rotation
+     // after computing it from the gyro sample data.
+     if (timestamp != 0) {
+         final float dT = (event.timestamp - timestamp) * NS2S;
+         // Axis of the rotation sample, not normalized yet.
+         float axisX = event.values[0];
+         float axisY = event.values[1];
+         float axisZ = event.values[2];
+
+         // Calculate the angular speed of the sample
+         float omegaMagnitude = sqrt(axisX*axisX + axisY*axisY + axisZ*axisZ);
+
+         // Normalize the rotation vector if it&apos;s big enough to get the axis
+         if (omegaMagnitude &gt; EPSILON) {
+             axisX /= omegaMagnitude;
+             axisY /= omegaMagnitude;
+             axisZ /= omegaMagnitude;
+         }
+
+         // Integrate around this axis with the angular speed by the timestep
+         // in order to get a delta rotation from this sample over the timestep
+         // We will convert this axis-angle representation of the delta rotation
+         // into a quaternion before turning it into the rotation matrix.
+         float thetaOverTwo = omegaMagnitude * dT / 2.0f;
+         float sinThetaOverTwo = sin(thetaOverTwo);
+         float cosThetaOverTwo = cos(thetaOverTwo);
+         deltaRotationVector[0] = sinThetaOverTwo * axisX;
+         deltaRotationVector[1] = sinThetaOverTwo * axisY;
+         deltaRotationVector[2] = sinThetaOverTwo * axisZ;
+         deltaRotationVector[3] = cosThetaOverTwo;
+     }
+     timestamp = event.timestamp;
+     float[] deltaRotationMatrix = new float[9];
+     SensorManager.getRotationMatrixFromVector(deltaRotationMatrix, deltaRotationVector);
+     // User code should concatenate the delta rotation we computed with the current rotation
+     // in order to get the updated rotation.
+     // rotationCurrent = rotationCurrent * deltaRotationMatrix;
+}
+</code></pre><p>In practice, the gyroscope noise and offset will introduce some errors which need to be compensated for. This is usually done using the information from other sensors, but is beyond the scope of this document.</p>
+<hr>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[关于android传感器中的一些名词]]></title>
+      <url>http://www.manso-he.net/2016/07/19/%E5%85%B3%E4%BA%8Eandroid%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%90%8D%E8%AF%8D/</url>
+      <content type="html"><![CDATA[<p>有关传感器的一些名词缩写介绍<br><a id="more"></a><br><strong>FSR：Full Scale Range</strong> 全刻度范围<br>用于标示陀螺仪等的量程，例如：+/- 2000DPS</p>
+<p><strong>DPS：Degree per Second</strong> °/s 度每秒<br>是角速度的单位，也是陀螺仪原始数据的单位</p>
+<p><strong>DLPF：Digital Low Pass Filter</strong> 数字低通滤波<br>对原始数据的滤波</p>
+<p><strong>FIFO rate: First Input First Output</strong> 先入先出缓存速率<br>用于接收硬件数据的缓存区，在IIO子系统中以环形缓存处理</p>
+<p><strong>IIO： Industrial I/O subsystem</strong> 工业输入输出子系统<br>是linux一个用于处理输入输出的系统，通过I2C总线来传递数据</p>
+<p><strong>I2C：Inter－Integrated Circuit</strong> 总线类型<br>由PHILIPS公司提出的两线式串行总线，android linux内核使用这种协议。</p>
+<p><strong>DMP：Digital Motion Process</strong> 数字动作处理<br>invensense公司的MPU芯片上提供的小型处理装置，可以直接提供四元数，不过频率较低</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[linux下解压命令汇总]]></title>
+      <url>http://www.manso-he.net/2016/07/19/linux%20%E4%B8%8B%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+      <content type="html"><![CDATA[<p>编译android framework层代码都是使用的linux系统，其中解压命令挺常用的，记录一下<br><a id="more"></a></p>
+<hr>
+<h4 id="tar"><a href="#tar" class="headerlink" title=".tar"></a>.tar</h4><p>解包：tar xvf FileName.tar<br>打包：tar cvf FileName.tar DirName</p>
+<hr>
+<h4 id="gz"><a href="#gz" class="headerlink" title=".gz"></a>.gz</h4><p>解压1：gunzip FileName.gz<br>解压2：gzip -d FileName.gz<br>压缩：gzip FileName</p>
+<hr>
+<h4 id="tar-gz和-tgz"><a href="#tar-gz和-tgz" class="headerlink" title=".tar.gz和.tgz"></a>.tar.gz和.tgz</h4><p>解压：tar zxvf FileName.tar.gz<br>压缩：tar zcvf FileName.tar.gz DirName</p>
+<hr>
+<h4 id="bz2"><a href="#bz2" class="headerlink" title=".bz2"></a>.bz2</h4><p>解压1：bzip2 -d FileName.bz2<br>解压2：bunzip2 FileName.bz2<br>压缩： bzip2 -z FileName</p>
+<hr>
+<h4 id="tar-bz2"><a href="#tar-bz2" class="headerlink" title=".tar.bz2"></a>.tar.bz2</h4><p>解压：tar jxvf FileName.tar.bz2<br>压缩：tar jcvf FileName.tar.bz2 DirName</p>
+<hr>
+<h4 id="bz"><a href="#bz" class="headerlink" title=".bz"></a>.bz</h4><p>解压1：bzip2 -d FileName.bz<br>解压2：bunzip2 FileName.bz</p>
+<hr>
+<h4 id="tar-bz"><a href="#tar-bz" class="headerlink" title=".tar.bz"></a>.tar.bz</h4><p>解压：tar jxvf FileName.tar.bz</p>
+<hr>
+<h4 id="Z"><a href="#Z" class="headerlink" title=".Z"></a>.Z</h4><p>解压：uncompress FileName.Z<br>压缩：compress FileName</p>
+<hr>
+<h4 id="tar-Z"><a href="#tar-Z" class="headerlink" title=".tar.Z"></a>.tar.Z</h4><p>解压：tar Zxvf FileName.tar.Z<br>压缩：tar Zcvf FileName.tar.Z DirName</p>
+<hr>
+<h4 id="zip"><a href="#zip" class="headerlink" title=".zip"></a>.zip</h4><p>解压：unzip FileName.zip<br>压缩：zip FileName.zip DirName</p>
+<hr>
+<h4 id="rar"><a href="#rar" class="headerlink" title=".rar"></a>.rar</h4><p>解压：rar x FileName.rar<br>压缩：rar a FileName.rar DirName</p>
+<hr>
+<h4 id="lha"><a href="#lha" class="headerlink" title=".lha"></a>.lha</h4><p>解压：lha -e FileName.lha<br>压缩：lha -a FileName.lha FileName</p>
+<hr>
+<h4 id="rpm"><a href="#rpm" class="headerlink" title=".rpm"></a>.rpm</h4><p>解包：rpm2cpio FileName.rpm | cpio -div</p>
+<hr>
+<h4 id="deb"><a href="#deb" class="headerlink" title=".deb"></a>.deb</h4><p>解包：ar p FileName.deb data.tar.gz | tar zxf -</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 实用笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[手机传感器简述]]></title>
+      <url>http://www.manso-he.net/2016/07/19/%E6%89%8B%E6%9C%BA%E4%BC%A0%E6%84%9F%E5%99%A8%E7%AE%80%E8%BF%B0/</url>
+      <content type="html"><![CDATA[<p>实习任务要求弄一个陀螺仪的算法，所以就翻看了一下android相关传感器，此文作为一个笔记。<br><a id="more"></a></p>
+<hr>
+<h3 id="加速度传感器"><a href="#加速度传感器" class="headerlink" title="加速度传感器"></a>加速度传感器</h3><p>加速度传感器又叫<code>G-sensor</code>，返回x、y、z三轴的加速度数值。<br>该数值包含地心引力的影响，单位是<code>m/s^2</code>。</p>
+<p>将手机平放在桌面上，x轴默认为0，y轴默认0，z轴默认9.81。<br>将手机朝下放在桌面上，z轴为-9.81。<br>将手机向左倾斜，x轴为正值。<br>将手机向右倾斜，x轴为负值。<br>将手机向上倾斜，y轴为负值。<br>将手机向下倾斜，y轴为正值。</p>
+<p>这些传感器一般提供±2G至±16G的加速度测量范围，采用I2C或SPI接口和MCU相连，数据精度小于16bit</p>
+<hr>
+<h3 id="磁力传感器"><a href="#磁力传感器" class="headerlink" title="磁力传感器"></a>磁力传感器</h3><p>磁力传感器简称为<code>M-sensor</code>，返回x、y、z三轴的环境磁场数据。<br>该数值的单位是微特斯拉<code>micro-Tesla</code>，用<code>uT</code>表示。<br>单位也可以是高斯<code>Gauss</code>，1<code>Tesla</code>=10000<code>Gauss</code>。<br>硬件上一般没有独立的磁力传感器，磁力数据由电子罗盘传感器提供<code>E-compass</code>。<br>电子罗盘传感器同时提供下文的方向传感器数据。</p>
+<hr>
+<h3 id="陀螺仪传感器"><a href="#陀螺仪传感器" class="headerlink" title="陀螺仪传感器"></a>陀螺仪传感器</h3><p>陀螺仪传感器叫做<code>Gyro-sensor</code>，返回x、y、z三轴的角加速度数据。<br>角加速度的单位是<code>radians/second</code>。</p>
+<p>逆时针方向为正</p>
+<hr>
+<h3 id="方向传感器"><a href="#方向传感器" class="headerlink" title="方向传感器"></a>方向传感器</h3><p>方向传感器简称为<code>O-sensor</code>，返回三轴的角度数据，方向数据的单位是<code>角度</code>。<br>为了得到精确的角度数据，<code>E-compass</code>需要获取<code>G-sensor</code>的数据，<br>经过计算生产<code>O-sensor</code>数据，否则只能获取水平方向的角度。<br>方向传感器提供三个数据，分别为<code>azimuth</code>、<code>pitch</code>和<code>roll</code>。</p>
+<ul>
+<li>azimuth<br><em>方位</em>，返回水平时磁北极和Y轴的夹角，范围为0°至360°。<br>0°=北，90°=东，180°=南，270°=西。</li>
+<li>pitch<br>x轴和水平面的夹角，范围为-180°至180°。<br>当z轴向y轴转动时，角度为正值。</li>
+<li>roll<br>y轴和水平面的夹角，由于历史原因，范围为-90°至90°。<br>当x轴向z轴移动时，角度为正值。<blockquote>
+<p>电子罗盘在获取正确的数据前需要进行校准，通常可用8字校准法。8字校准法要求用户使用需要校准<br>的设备在空中做8字晃动，原则上尽量多的让设备法线方向指向空间的所有8个象限。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="重力传感器"><a href="#重力传感器" class="headerlink" title="重力传感器"></a>重力传感器</h3><p>重力传感器简称<code>GV-sensor</code>，输出重力数据。<br>在地球上，重力数值为<code>9.8</code>，单位是<code>m/s^2</code>。<br>坐标系统与加速度传感器相同。<br>当设备复位时，重力传感器的输出与加速度传感器相同。</p>
+<hr>
+<h3 id="线性加速度传感器"><a href="#线性加速度传感器" class="headerlink" title="线性加速度传感器"></a>线性加速度传感器</h3><p>线性加速度传感器简称<code>LA-sensor</code>。<br><em>线性加速度传感器</em>是<em>加速度传感器</em>减去重力影响获取的数据。<br>单位是<code>m/s^2</code>，坐标系统与加速度传感器相同。<br><em>加速度传感器</em>、<em>重力传感器</em>和<em>线性加速度传感器</em>的计算公式如下：<br>加速度 = 重力 + 线性加速度</p>
+<hr>
+<h3 id="旋转矢量传感器"><a href="#旋转矢量传感器" class="headerlink" title="旋转矢量传感器"></a>旋转矢量传感器</h3><p>旋转矢量传感器简称<code>RV-sensor</code>。<br>旋转矢量代表设备的方向，是一个将坐标轴和角度混合计算得到的数据。<br><code>RV-sensor</code>输出三个数据：<br><code>x*sin(theta/2)</code><br><code>y*sin(theta/2)</code><br><code>z*sin(theta/2)</code><br>sin(theta/2)是RV的数量级。<br>RV的方向与轴旋转的方向相同。<br>RV的三个数值，与<code>cos(theta/2)</code>组成一个四元组。<br>RV的数据没有单位，使用的坐标系与加速度相同。<br>举例：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sensors_event_t</span>.<span class="class"><span class="keyword">data</span>[0] = x*sin(<span class="title">theta</span>/2)</span></span><br><span class="line"><span class="title">sensors_event_t</span>.<span class="class"><span class="keyword">data</span>[1] = y*sin(<span class="title">theta</span>/2)</span></span><br><span class="line"><span class="title">sensors_event_t</span>.<span class="class"><span class="keyword">data</span>[2] = z*sin(<span class="title">theta</span>/2)</span></span><br><span class="line"><span class="title">sensors_event_t</span>.<span class="class"><span class="keyword">data</span>[3] = cos(<span class="title">theta</span>/2)</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="GV、LA和RV的数值没有物理传感器可以直接给出，需要G-sensor-重力传感器-、O-sensor（方向传感器）和Gyro-sensor（陀螺仪传感器）经过算法计算后得出。"><a href="#GV、LA和RV的数值没有物理传感器可以直接给出，需要G-sensor-重力传感器-、O-sensor（方向传感器）和Gyro-sensor（陀螺仪传感器）经过算法计算后得出。" class="headerlink" title="GV、LA和RV的数值没有物理传感器可以直接给出，需要G-sensor(重力传感器)、O-sensor（方向传感器）和Gyro-sensor（陀螺仪传感器）经过算法计算后得出。"></a><code>GV</code>、<code>LA</code>和<code>RV</code>的数值没有物理传感器可以直接给出，需要<code>G-sensor</code>(重力传感器)、<code>O-sensor</code>（方向传感器）和<code>Gyro-sensor</code>（陀螺仪传感器）经过算法计算后得出。</h4>]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Sensor框架简述（二）]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20Sensor%E6%A1%86%E6%9E%B6%E7%AE%80%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>上一章总结了SensorService的工作流程，现在细分一下OnFirstRef()函数究竟做了什么<br><a id="more"></a><br><img src="/images/android_sensor_two_1.jpg" alt="l流程图"><br>流程很清晰，SensorService第一次创建之后，运行onFirstRef函数</p>
+<p>其中调用getSensorList获得Sensor的列表，之后循环对每个Sensor进行注册，并把SensorList交给UserSensorList，之后UserSensorList将提交给JAVA框架层。</p>
+<p>最后运行run，即SensorService的函数threadLoop</p>
+<p>其中对SensorDevice使用poll函数来获取数据，之后处理虚拟传感器（由多个硬件传感器数据结合模拟一个传感器工作），比如直线加速度传感器等，最后sendEvents，将数据发送到管道中供APP应用层使用。</p>
+<hr>
+<h2 id="应用层数据使用"><a href="#应用层数据使用" class="headerlink" title="应用层数据使用"></a>应用层数据使用</h2><ol>
+<li><p>获取sensor manager对象；<br>SensorManager mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);</p>
+</li>
+<li><p>获取sensor object；<br>Sensor mGYRSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);</p>
+<blockquote>
+<p>sensor可能会有很多，可以用sensorlist全部获取</p>
+</blockquote>
+</li>
+<li><p>定义eventListener：<br>SensorEventListener mGYRSensorListener = new SensorEventListener()</p>
+</li>
+<li><p>注册eventListener；<br>mSensorManager.registerListener(mGYRSensorListener, mGYRSensor,</p>
+<pre><code>SensorManager.SENSOR_DELAY_GAME, mHandler);
+</code></pre></li>
+<li><p>卸载eventListener；<br>mSensorManager.unregisterListener(mGYRSensorListener);</p>
+</li>
+</ol>
+<p>以上应用的方式非常灵活，不一定严格遵循此格式，可以通过Service等形式来灵活使用</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 源码单独编译和文件替换]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20%E6%BA%90%E7%A0%81%E5%8D%95%E7%8B%AC%E7%BC%96%E8%AF%91%E5%92%8C%E6%96%87%E4%BB%B6%E6%9B%BF%E6%8D%A2/</url>
+      <content type="html"><![CDATA[<p>Android 源码的单独编译等<br><a id="more"></a></p>
+<h3 id="单独编译"><a href="#单独编译" class="headerlink" title="单独编译"></a>单独编译</h3><blockquote>
+<p>单独编译必须在源码完全编译的基础上进行</p>
+</blockquote>
+<p>在编译make -j 执行之后，会生成out文件夹，文件夹和android系统的文件系统一一对应。文件结构在此不再描述，不同系统厂商可能会有细微差别。<br>运行命令<br><code>source build/envsetup.sh</code><br><code>mmm packages/apps/Music</code>     //这是示范，文件路径视自己情况而定<br>生成的文件在<br><code>&lt;源码路径&gt;\out\target\product\generic\system\app</code>   //配合上诉示范，具体路径根据自己情况而定</p>
+<hr>
+<h3 id="文件替换"><a href="#文件替换" class="headerlink" title="文件替换"></a>文件替换</h3><p>使用<code>adb remount</code>命令将机器改为可读写<br>再使用<code>adb push packages/apps/Music system/framework_app/apps</code>将单独编译后的apk文件<code>push</code>进机器。</p>
+<blockquote>
+<p>注意上诉的所有文件路径皆为示范，请更具自己实际情况做调整</p>
+</blockquote>
+<p>最后<code>adb reboot</code>重启，开机调试</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 源码编译过程解释]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%E8%A7%A3%E9%87%8A/</url>
+      <content type="html"><![CDATA[<p>实习的主要工作是android framework层的编译和定制，下面就简单得记录一下相关命令和其意义。<br><a id="more"></a></p>
+<hr>
+<h3 id="源码的文件结构"><a href="#源码的文件结构" class="headerlink" title="源码的文件结构"></a>源码的文件结构</h3><p>公司的源码下有两个文件，一个是android文件夹，一个是lichee，其中android是代码文件，是android定制的核心，lichee是全志科技芯片内核，其实也就是linux的内核。</p>
+<hr>
+<h3 id="编译内核"><a href="#编译内核" class="headerlink" title="编译内核"></a>编译内核</h3><p>lichee文件夹下，有build.sh的脚本，主要内容是对kernel内核的编译，out目录下会产生已选择相应的img，之后在android编译的时候则会直接从中拷贝进行编译。</p>
+<hr>
+<h3 id="编译android"><a href="#编译android" class="headerlink" title="编译android"></a>编译android</h3><p>编译之前，会执行<code>source build/envsetup.sh</code>和<code>lunch</code>命令，其中lunch会跟一个参数表示产品的型号和eng，userdebug之类。</p>
+<p>之后运行<code>extract-bsp</code>，extract-bsp是一个脚本函数，在device/softwinner/common/vendorsetup.sh 他也是在lunch的时候被执行的，也就是说如果先不执行lunch ，extract-bsp是无效的。这个脚本的主要作用是将lichee编译的结果输出到device/softwinner/vendor目录下</p>
+<hr>
+<h3 id="打包IMG"><a href="#打包IMG" class="headerlink" title="打包IMG"></a>打包IMG</h3><p>上面的<code>extract-esp</code>执行完之后，则可以运行<code>make -jn</code>(n根据电脑的配置选择，我用的是16)，第一次编译的过程非常久，大概1-2个小时左右。编译结束后，会在out文件夹下生成很多的img文件这也是为我们的打包做准备。</p>
+<p>最后执行<code>pack</code>命令，进行打包，运行结束之后，最后会在lichee/tools/pack目录下，一般格式是sun8xxx_android_yourname_uart0.img（其中yourname是自己取的名字）。</p>
+<p>生成的img文件就可以进行固件的烧录了，烧录的方式由硬件商提供，在此不再描述。</p>
+<hr>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Studio阅读android 源码]]></title>
+      <url>http://www.manso-he.net/2016/07/19/Android%20Studio%E9%98%85%E8%AF%BBandroid%20%E6%BA%90%E7%A0%81/</url>
+      <content type="html"><![CDATA[<h2 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h2><p>在实习之前，我一直是在Windows下用的Android Studio开发android项目的，来实习之后，由于是framework层，直接在android的源码下修改，同事推荐了source insight，但是那蛋疼的编码方式和linux系统下糟糕的体验让我非常无语。<br><a id="more"></a></p>
+<p>后来发现Android的源码下提供了一个tools，可以建立一个AS的工程文件（果然Android Studio是亲儿子啊），于是转而使用Android Studio看源码了</p>
+<hr>
+<h2 id="工程文件的建立"><a href="#工程文件的建立" class="headerlink" title="工程文件的建立"></a>工程文件的建立</h2><blockquote>
+<p>下文能顺利进行的基础是源码完整编译过一次</p>
+</blockquote>
+<ul>
+<li>进入源码目录，即android目录下</li>
+<li>执行<br><code>mmm development/tools/idegen/</code><br>执行完成后，会产生一个idegen.jar文件，大概在out/target/product/xxx/（其中xxx是系统的版本）文件夹下</li>
+<li>执行<br><code>sh ./development/tools/idegen/idegen.sh</code>\<br>运行完毕之后回生成android.iws, android.ipr, android.iml三个文件，这些就是AS可以识别的工程文件了。</li>
+</ul>
+<h2 id="使用Android-Studio打开源码"><a href="#使用Android-Studio打开源码" class="headerlink" title="使用Android Studio打开源码"></a>使用Android Studio打开源码</h2><p>在linux下运行Android Studio，具体的Android Studio不在多说，官方文档有说明，国内有很多的博客论坛都有教程</p>
+<p>使用AS打开工程，打开android.ipr的文件，整个工程就可以导入到Android Studio了。接下来，享受亲儿子IDE的良好体验吧。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 移动开发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>

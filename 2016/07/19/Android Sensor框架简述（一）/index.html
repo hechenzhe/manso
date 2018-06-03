@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Manso" />
+
+
+
+<meta name="description" content="Sensor整体框架 什么是Sensor？">
+<meta name="keywords" content="移动开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Sensor框架简述（一）">
+<meta property="og:url" content="http://www.manso-he.net/2016/07/19/Android Sensor框架简述（一）/index.html">
+<meta property="og:site_name" content="Manso の Blog">
+<meta property="og:description" content="Sensor整体框架 什么是Sensor？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.manso-he.net/images/android_sensor_one_1.jpg">
+<meta property="og:image" content="http://www.manso-he.net/images/android_sensor_one_2.jpg">
+<meta property="og:image" content="http://www.manso-he.net/images/android_sensor_one_3.jpg">
+<meta property="og:updated_time" content="2018-06-03T10:23:16.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Sensor框架简述（一）">
+<meta name="twitter:description" content="Sensor整体框架 什么是Sensor？">
+<meta name="twitter:image" content="http://www.manso-he.net/images/android_sensor_one_1.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Manso の Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Android Sensor框架简述（一） | Manso の Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?5acccff855e576527a58a06af29d4d4b";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/me.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Manso</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">成长期程序员</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/hechenzhe/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/hechenzhe" title="GitHub"></a>
+                            
+                                <a class="fa CSDN" href="http://blog.csdn.net/qq_21198071" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" href="mailto:542985322@qq.com" title="Email"></a>
+                            
+                                <a class="fa Coding" href="https://coding.net/u/manso" title="Coding"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS动画/">JS动画</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/welcome/">welcome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实用笔记/">实用笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动开发/">移动开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性代数/">线性代数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机图形学/">计算机图形学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wixy.top/">wixy</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://txiner.top/">Hundred</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://techair.cc/">飞翔的技术宅</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.smallyi.com/">小忆</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Manso</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/me.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Manso</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">成长期程序员</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/hechenzhe/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/hechenzhe" title="GitHub"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/qq_21198071" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" target="_blank" href="mailto:542985322@qq.com" title="Email"></a>
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/manso" title="Coding"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Android Sensor框架简述（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/19/Android Sensor框架简述（一）/" class="article-date">
+      <time datetime="2016-07-19T06:14:00.000Z" itemprop="datePublished">2016-07-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android Sensor框架简述（一）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发/">移动开发</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Sensor整体框架"><a href="#Sensor整体框架" class="headerlink" title="Sensor整体框架"></a>Sensor整体框架</h2><blockquote>
+<p>什么是Sensor？</p>
+</blockquote>
+<a id="more"></a>
+<p>Sensor就是所谓的传感器，比如AccelerometerSensor、MagneticSensor、OrientationSensor、ProximitySensor、LightSensor、Gyro等。</p>
+<p><img src="/images/android_sensor_one_1.jpg" alt="Sensor框架结构"></p>
+<p>黄色部分：硬件，在I2C总线上</p>
+<p>红色部分：驱动，驱动注册到Kernel的<code>Input Subsystem</code>上，然后通过<code>Event Device</code>把Sensor数据传到HAL层，准确说是HAL从Event读</p>
+<p>绿色部分：动态库，它封装了整个Sensor的IPC机制，如<code>SensorManager</code>是客户端，<code>SensorService</code>是服务端，而HAL部分是封装了服务端对Kernel的直接访问</p>
+<p>蓝色部分就是我们的<code>Framework</code>和<code>Application</code>了，JNI负责访问Sensor的客户端，而<code>Application</code>就是具体的应用程序，用来接收Sensor返回的数据，并处理实现对应的UI效果</p>
+<hr>
+<h3 id="SensorService启动"><a href="#SensorService启动" class="headerlink" title="SensorService启动"></a>SensorService启动</h3><blockquote>
+<p>网络上很多sensor机制讲解的内容都是过时的了，新的android有了新的机制，这里讲的是Android5.0以上的版本</p>
+</blockquote>
+<p>这里推荐一个较新的博客，关于Android5.0 Sensor机制<a href="http://blog.csdn.net/zsj100213/article/details/48179655" target="_blank" rel="noopener"> android-5.0 sensor工作原理—sensorservice的启动(一) </a><br><img src="/images/android_sensor_one_2.jpg" alt="SensorService启动"></p>
+<p>启动SensorService的过程如上图所示，过程还是比较清晰的。</p>
+<hr>
+<h3 id="SensorDevice获取"><a href="#SensorDevice获取" class="headerlink" title="SensorDevice获取"></a>SensorDevice获取</h3><p>SensorService的onFirstRef()函数创建了一个新的SensorDevice，接下来就来看看SensorDevice做了哪些工作。<br><img src="/images/android_sensor_one_3.jpg" alt="SensorDevice获取描述"></p>
+<h4 id="hw-get-module"><a href="#hw-get-module" class="headerlink" title="hw_get_module()"></a>hw_get_module()</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">status_t err = hw_get_module(<span class="name">SENSORS_HARDWARE_MODULE_ID</span>,</span><br><span class="line">            (<span class="name">hw_module_t</span> const**)<span class="symbol">&amp;mSensorModule</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这个函数主要是为了从的库文件获取参数，第一个参数是所获取的hardware模块的名字，第二个参数是获得的hw_module_t。如何获得的细节不在赘述。</p>
+<h5 id="hw-module-t"><a href="#hw-module-t" class="headerlink" title="hw_module_t"></a>hw_module_t</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sensors_module_t</span> <span class="title">HAL_MODULE_INFO_SYM</span> = &#123;</span>  </span><br><span class="line">        common:&#123;  </span><br><span class="line">                tag: HARDWARE_MODULE_TAG,  </span><br><span class="line">                version_major: <span class="number">1</span>,  </span><br><span class="line">                version_minor: <span class="number">0</span>,  </span><br><span class="line">                id: SENSORS_HARDWARE_MODULE_ID,  </span><br><span class="line">                name: <span class="string">"SPRD Sensor module"</span>,  </span><br><span class="line">                author: <span class="string">"Spreadtrum"</span>,  </span><br><span class="line">                methods: &amp;sensors_module_methods,  </span><br><span class="line">                dso: <span class="number">0</span>,  </span><br><span class="line">                reserved:&#123;&#125;,  </span><br><span class="line">        &#125;,  </span><br><span class="line">        get_sensors_list:sensors__get_sensors_list,  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">hw_module_methods_t</span> <span class="title">sensors_module_methods</span> = &#123;</span>  </span><br><span class="line">open:    open_sensors  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sensors__get_sensors_list</span><span class="params">(struct <span class="keyword">sensors_module_t</span> *<span class="keyword">module</span>,  </span></span></span><br><span class="line"><span class="function"><span class="params">                     struct <span class="keyword">sensor_t</span> <span class="keyword">const</span> **<span class="built_in">list</span>)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    *<span class="built_in">list</span> = sSensorList;  </span><br><span class="line">    <span class="keyword">return</span> numSensors;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个结构体，包含一个hw_module_t还包含一些接口，比如sensors__get_sensors_list和open_sensors等</p>
+<h4 id="sensors-open-1"><a href="#sensors-open-1" class="headerlink" title="sensors_open_1"></a>sensors_open_1</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">sensors_open_1</span><span class="params">(<span class="keyword">const</span> struct <span class="keyword">hw_module_t</span>* <span class="keyword">module</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">       <span class="keyword">sensors_poll_device_1_t</span>** device)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">module</span>-&gt;methods-&gt;open(<span class="keyword">module</span>,  </span><br><span class="line">           SENSORS_HARDWARE_POLL, (struct <span class="keyword">hw_device_t</span>**)device);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的open函数就是上一步<code>hw_get_module()</code>获取的<code>sensors_module_t</code>所定义的<code>sensors_module_methods</code>的<code>open_sensors</code>接口</p>
+<h5 id="open-sensors"><a href="#open-sensors" class="headerlink" title="open_sensors()"></a>open_sensors()</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">open_sensors</span><span class="params">(<span class="keyword">const</span> struct <span class="keyword">hw_module_t</span>* <span class="keyword">module</span>, <span class="keyword">const</span> <span class="keyword">char</span>* id,  </span></span></span><br><span class="line"><span class="function"><span class="params">                        struct <span class="keyword">hw_device_t</span>** device)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> status = -EINVAL;  </span><br><span class="line">        <span class="keyword">sensors_poll_context_t</span> *dev = <span class="keyword">new</span> <span class="keyword">sensors_poll_context_t</span>();  </span><br><span class="line"></span><br><span class="line">        <span class="built_in">memset</span>(&amp;dev-&gt;device, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">sensors_poll_device_t</span>));  </span><br><span class="line"></span><br><span class="line">        dev-&gt;device.common.tag = HARDWARE_DEVICE_TAG;  </span><br><span class="line">        dev-&gt;device.common.version  = <span class="number">0</span>;  </span><br><span class="line">        dev-&gt;device.common.<span class="keyword">module</span>   = <span class="keyword">const_cast</span>&lt;<span class="keyword">hw_module_t</span>*&gt;(<span class="keyword">module</span>);  </span><br><span class="line">        dev-&gt;device.common.close    = poll__close;  </span><br><span class="line">        dev-&gt;device.activate        = poll__activate;  </span><br><span class="line">        dev-&gt;device.setDelay        = poll__setDelay;  </span><br><span class="line">        dev-&gt;device.poll            = poll__poll;  </span><br><span class="line"></span><br><span class="line">        *device = &amp;dev-&gt;device.common;  </span><br><span class="line">        status = <span class="number">0</span>;  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> status;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>sensors_poll_context_t()方法新建并初始化系统所有的sensor</em><br>然后对sensors_poll_device_t结构体的初始化，以及数据获取的API 接口的定义</p>
+</blockquote>
+<h4 id="get-sensors-list"><a href="#get-sensors-list" class="headerlink" title="get_sensors_list()"></a>get_sensors_list()</h4><p>这个方法就是上述hw_get_module()获取的sensors_module_t的方法，获取的是HAL层初始化好的sensor的列表，并返回sensor的数量</p>
+<h4 id="activate"><a href="#activate" class="headerlink" title="activate()"></a>activate()</h4><p>最后是一个循环，把所有的sensor都通过activate激活。</p>
+<p>调用HAL层sensor厂商添加的setEnable()方法来打开对应sensor。<br>通过open函数获取sensor在sysfs对应的文件节点，然后使用write函数往文件节点里面写1。</p>
+<p>这就是activate的大概过程，代码不再贴出来。</p>
+<p>至此，sensor全部启动完毕。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/07/19/Android同步类：Mutex和Condition的使用方式/">
+                    Android同步类：Mutex和Condition的使用方式
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/19/IOS 传感器Core Motion相关简述/">
+                    IOS 传感器Core Motion相关简述
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sensor整体框架"><span class="toc-number">1.</span> <span class="toc-text">Sensor整体框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SensorService启动"><span class="toc-number">1.1.</span> <span class="toc-text">SensorService启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SensorDevice获取"><span class="toc-number">1.2.</span> <span class="toc-text">SensorDevice获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hw-get-module"><span class="toc-number">1.2.1.</span> <span class="toc-text">hw_get_module()</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#hw-module-t"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">hw_module_t</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sensors-open-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">sensors_open_1</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#open-sensors"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">open_sensors()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-sensors-list"><span class="toc-number">1.2.3.</span> <span class="toc-text">get_sensors_list()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#activate"><span class="toc-number">1.2.4.</span> <span class="toc-text">activate()</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Android Sensor框架简述（一）　| Manso の Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/19/Android同步类：Mutex和Condition的使用方式/" title="上一篇: Android同步类：Mutex和Condition的使用方式">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/19/IOS 传感器Core Motion相关简述/" title="下一篇: IOS 传感器Core Motion相关简述">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/程序员的七夕礼物/">程序员的七夕礼物</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/HAL接口实现/">Android HAL接口实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/29/【Android】Sensor框架Framework层解读/">转载：【Android】Sensor框架Framework层解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/28/矩阵的求逆/">矩阵的求逆</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/Android Sensor框架简述（三）/">Android Sensor框架简述（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/欢迎光临/">欢迎光临</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android同步类：Mutex和Condition的使用方式/">Android同步类：Mutex和Condition的使用方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android Sensor框架简述（一）/">Android Sensor框架简述（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/IOS 传感器Core Motion相关简述/">IOS 传感器Core Motion相关简述</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Ubuntu下adb无法连接真机的解决方案/">Ubuntu下adb无法连接真机的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android 下陀螺仪、加速度和磁场传感器数据定义/">Android下陀螺仪、加速度和磁场传感器数据定义</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/关于android传感器中的一些名词/">关于android传感器中的一些名词</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/linux 下解压命令汇总/">linux下解压命令汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/手机传感器简述/">手机传感器简述</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android Sensor框架简述（二）/">Android Sensor框架简述（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android 源码单独编译和文件替换/">Android 源码单独编译和文件替换</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android 源码编译过程解释/">Android 源码编译过程解释</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android Studio阅读android 源码/">Android Studio阅读android 源码</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Manso
+                
+                    <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+                
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 你看不见我~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
